@@ -306,19 +306,18 @@ function memoizedArea() {
   let prevSide = null;
   let prevResult = null;
 
-  return (side) => {
+  return function (side) {
     if (side === prevSide) {
       console.log("Fetching from cache");
       return prevResult;
-    }
-    if (side !== prevSide) {
+    } else {
       console.log("Calculating result");
-      return prevResult;
+
+      let result = side * side;
+      prevSide = side;
+      prevResult = result;
+      return result;
     }
-    const result = `${prevSide} * ${prevResult}`;
-    prevSide = side;
-    prevResult = result;
-    return result;
   };
 }
 const squareArea = memoizedArea();
